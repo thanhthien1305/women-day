@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng 8/3</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --rose: #e8748a;
+            --blush: #f2a7b8;
+            --lavender: #9b7ec8;
+            --soft-purple: #c9a6e0;
+            --cream: #fdf6f0;
+            --warm-white: #fff9f5;
+            --deep: #3a1f2e;
+            --gold: #d4a843;
+        }
+
+        body {
+            background: var(--cream);
+            min-height: 100vh;
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        /* Animated petals background */
+        .petals-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            border-radius: 50% 0 50% 0;
+            opacity: 0;
+            animation: fallPetal linear infinite;
+        }
+
+        @keyframes fallPetal {
+            0% {
+                transform: translateY(-60px) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 0;
+        }
+
+        /* Top banner */
+        .top-banner {
+            background: linear-gradient(135deg, var(--deep) 0%, #6b2d4e 50%, #3a1f2e 100%);
+            padding: 18px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255, 255, 255, 0.03) 20px,
+                    rgba(255, 255, 255, 0.03) 40px);
+        }
+
+        .date-badge {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px rgba(212, 168, 67, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .divider-star {
+            color: var(--blush);
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+        }
+
+        .banner-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            color: var(--blush);
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+        }
+
+        /* Main content area */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 0;
+            min-height: 70vh;
+            position: relative;
+        }
+
+        /* Photo panels */
+        .photo-panel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .photo-panel:hover img {
+            transform: scale(1.06);
+        }
+
+        .photo-panel-1 {
+            clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+            animation: slideInLeft 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .photo-panel-3 {
+            clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+            animation: slideInRight 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .photo-panel-1,
+        .photo-panel-3 {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-60px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(60px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Center message panel */
+        .center-panel {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 30px;
+            background: linear-gradient(180deg,
+                    rgba(253, 246, 240, 0.97) 0%,
+                    rgba(255, 249, 245, 1) 50%,
+                    rgba(253, 246, 240, 0.97) 100%);
+            box-shadow: 0 0 60px rgba(232, 116, 138, 0.15), 0 0 120px rgba(155, 126, 200, 0.1);
+            animation: fadeInUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .ornament {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 12px auto;
+        }
+
+        .ornament-diamond {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .ornament-diamond span {
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+        }
+
+        .ornament-diamond::before,
+        .ornament-diamond::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+
+        .ornament-diamond::after {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: var(--deep);
+            text-align: center;
+            line-height: 1.3;
+            letter-spacing: 1px;
+        }
+
+        .main-title em {
+            color: var(--rose);
+            font-style: italic;
+            display: block;
+            font-size: 1.3em;
+            text-shadow: 0 2px 20px rgba(232, 116, 138, 0.3);
+        }
+
+        .wish-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: var(--lavender);
+            text-align: center;
+            line-height: 1.6;
+            margin: 16px 0;
+            font-weight: 600;
+        }
+
+        .message-body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            color: #5a3a4a;
+            text-align: center;
+            line-height: 1.9;
+            font-weight: 300;
+            font-style: italic;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .heart-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 14px 0;
+        }
+
+        .heart {
+            font-size: 1.2rem;
+            animation: heartbeat 1.4s ease-in-out infinite;
+        }
+
+        .heart:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .heart:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.25);
+            }
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+
+        /* Photo overlays */
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(58, 31, 46, 0.15) 0%,
+                    rgba(58, 31, 46, 0.05) 40%,
+                    rgba(232, 116, 138, 0.25) 100%);
+            pointer-events: none;
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Bottom footer */
+        .bottom-footer {
+            background: var(--deep);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bottom-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .footer-wish {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+            color: var(--blush);
+            text-align: center;
+            letter-spacing: 2px;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .footer-flower {
+            color: var(--soft-purple);
+            font-size: 1.3rem;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        .footer-flower:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp linear infinite;
+            font-size: 1rem;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                grid-template-rows: 280px auto 280px;
+            }
+
+            .photo-panel-1 {
+                clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+                order: 1;
+            }
+
+            .center-panel {
+                order: 2;
+                padding: 40px 24px;
+            }
+
+            .photo-panel-3 {
+                clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
+                order: 3;
+            }
+
+            .top-banner {
+                flex-wrap: wrap;
+                padding: 14px 20px;
+            }
+
+            .banner-text {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Falling petals background -->
+    <div class="petals-bg" id="petalsBg"></div>
+
+    <!-- Floating emoji particles -->
+    <div id="particles"></div>
+
+    <!-- HERO -->
+    <div class="hero">
+
+        <!-- TOP BANNER -->
+        <div class="top-banner">
+            <span class="divider-star">🌸</span>
+            <span class="date-badge">8 / 3</span>
+            <span class="divider-star">✦</span>
+            <span class="banner-text">Ngày Quốc Tế Phụ Nữ</span>
+            <span class="divider-star">✦</span>
+            <span class="date-badge" style="font-size:clamp(1.5rem,3vw,2.2rem); color: var(--blush);">2026</span>
+            <span class="divider-star">🌸</span>
+        </div>
+
+        <!-- MAIN 3-COLUMN LAYOUT -->
+        <div class="main-content">
+
+            <!-- LEFT PHOTO -->
+            <div class="photo-panel photo-panel-1">
+                <img src="./asset/z7591770700047_3aaf04eeee0dd9b4cf61781aa9737b91.jpg" alt="Hoa văn phòng 1">
+                <div class="photo-overlay"></div>
+                <div class="photo-caption">🌷 Tươi thắm</div>
+            </div>
+
+            <!-- CENTER MESSAGE -->
+            <div class="center-panel">
+                <div class="ornament-diamond">
+                    <span>✦ ✦ ✦</span>
+                </div>
+
+                <div class="main-title">
+                    Kính chúc<br>
+                    <em>Chị Em Phụ Nữ</em>
+                </div>
+
+                <div class="ornament"></div>
+
+                <div class="wish-text">
+                    Mãi mãi tỏa sáng<br>
+                    như những bông hoa
+                </div>
+
+                <div class="heart-row">
+                    <span class="heart">💗</span>
+                    <span class="heart">🌸</span>
+                    <span class="heart">💗</span>
+                </div>
+
+                <p class="message-body">
+                    Nhân ngày 8 tháng 3,<br>
+                    xin gửi đến toàn thể chị em<br>
+                    trong công ty những lời chúc<br>
+                    <strong style="font-style:normal; color: var(--rose);">chân thành và trân quý</strong> nhất
+                    —<br><br>
+                    Chúc chị em luôn rạng rỡ,<br>
+                    hạnh phúc, thành công<br>
+                    và xinh đẹp mỗi ngày! 🌺
+                </p>
+
+                <div class="ornament" style="margin-top: 20px;"></div>
+
+                <div class="ornament-diamond" style="margin: 10px 0;">
+                    <span>✦ ✦ ✦</span>
+                </div>
+
+                <div class="signature">— Nam nhân công ty gửi lời yêu thương —</div>
+            </div>
+
+            <!-- RIGHT PHOTO -->
+            <div class="photo-panel photo-panel-3">
+                <img src="./asset/z7591770720490_8bfd043c6b573a061efca84a638ea6ce.jpg" alt="Hoa văn phòng 3">
+                <div class="photo-overlay"></div>
+                <div class="photo-caption">💜 Rực rỡ</div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM FULL-WIDTH PHOTO STRIP -->
+        <div style="position:relative; height: 260px; overflow: hidden; z-index: 1;">
+            <img src="./asset/z7591770718245_3e1fcd70d923322e9bf829844a4b4293.jpg" alt="Hoa văn phòng 2"
+                style="width:100%; height:100%; object-fit:cover; object-position: center 60%; display:block; transition: transform 0.8s ease;"
+                onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            <div style="
+      position:absolute; inset:0;
+      background: linear-gradient(to bottom, rgba(58,31,46,0.5) 0%, rgba(58,31,46,0.1) 40%, rgba(58,31,46,0.6) 100%);
+    "></div>
+            <div style="
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap: 10px;
+    ">
+                <div style="
+        font-family:'Dancing Script', cursive;
+        font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+        color: white;
+        text-shadow: 0 3px 20px rgba(0,0,0,0.6);
+        font-weight: 700;
+        letter-spacing: 3px;
+      ">Chúc Mừng Ngày 8/3</div>
+                <div style="
+        font-family:'Cormorant Garamond', serif;
+        font-size: clamp(0.9rem, 1.8vw, 1.25rem);
+        color: rgba(255,255,255,0.92);
+        font-style: italic;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      ">"Phụ nữ — vẻ đẹp làm nên thế giới tươi hơn mỗi ngày"</div>
+                <div style="
+        display: flex; gap: 12px; margin-top: 6px;
+        font-size: 1.5rem;
+      ">🌷🌸💐🌺🌸🌷</div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="bottom-footer">
+            <span class="footer-flower">🌸</span>
+            <div class="footer-wish">
+                Trân trọng, yêu thương và biết ơn những người phụ nữ tuyệt vời của chúng ta<br>
+                Chúc chị em mãi luôn hạnh phúc • sức khỏe • thành công &amp; rạng rỡ như hoa 🌺
+            </div>
+            <span class="footer-flower">🌸</span>
+        </div>
+
+    </div>
+
+    <script>
+        // Create falling petals
+        const petalsBg = document.getElementById('petalsBg');
+        const colors = ['#e8748a', '#f2a7b8', '#9b7ec8', '#c9a6e0', '#d4a843', '#f9c6d0'];
+
+        for (let i = 0; i < 28; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.cssText = `
+      left: ${Math.random() * 100}%;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      animation-duration: ${5 + Math.random() * 8}s;
+      animation-delay: ${Math.random() * 10}s;
+      width: ${8 + Math.random() * 10}px;
+      height: ${12 + Math.random() * 14}px;
+      border-radius: ${Math.random() > 0.5 ? '50% 0 50% 0' : '0 50% 0 50%'};
+      opacity: 0;
+    `;
+            petalsBg.appendChild(petal);
+        }
+
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        const emojis = ['🌸', '💐', '🌷', '✨', '💗', '🌺', '💜'];
+
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      animation-duration: ${8 + Math.random() * 12}s;
+      animation-delay: ${Math.random() * 15}s;
+      font-size: ${0.7 + Math.random() * 0.8}rem;
+    `;
+            particlesContainer.appendChild(p);
+        }
+    </script>
+</body>
+
+</html>
