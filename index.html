@@ -44,7 +44,7 @@
         .intro-overlay {
             position: fixed;
             inset: 0;
-            background: linear-gradient(-45deg, #3a1f2e, #6b2d4e, #d4a843, #e8748a);
+            background: linear-gradient(-45deg, #3a1f2e, #7a2d5e, #c0426e, #6b2d4e, #4a1535, #a03060);
             background-size: 400% 400%;
             animation: gradientBG 10s ease infinite;
             z-index: 9999;
@@ -60,6 +60,8 @@
             overflow: hidden;
             transform-origin: center center;
         }
+
+        
 
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -94,10 +96,10 @@
         .intro-step h2 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(2.5rem, 6vw, 4rem);
-            color: var(--gold);
+            color: #ffe08a;
             margin-bottom: 20px;
             letter-spacing: 2px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 4px 20px rgba(0,0,0,0.5);
             transform: translateY(30px);
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
@@ -106,10 +108,10 @@
         .intro-step p {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-            color: var(--warm-white);
+            color: #ffffff;
             font-style: italic;
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 3px 12px rgba(0,0,0,0.6);
             transform: translateY(30px);
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
@@ -251,11 +253,12 @@
 
         .intro-star {
             position: absolute;
-            color: var(--gold);
+            color: #ffe08a;
             pointer-events: none;
             animation: twinkle 3s infinite ease-in-out;
             font-size: 1.2rem;
-            opacity: 0.6;
+            opacity: 0.5;
+            text-shadow: 0 0 6px rgba(0,0,0,0.5);
         }
 
         @keyframes twinkle {
@@ -268,7 +271,8 @@
             bottom: 50px;
             font-family: 'Dancing Script', cursive;
             font-size: 1.5rem;
-            color: var(--lavender);
+            color: #e8c8f8;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
             animation: pulse-hint 1.5s infinite;
         }
 
