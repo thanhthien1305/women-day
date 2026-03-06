@@ -46,23 +46,41 @@
         .intro-overlay {
             position: fixed;
             inset: 0;
-            background: linear-gradient(135deg, var(--deep) 0%, #6b2d4e 50%, #3a1f2e 100%);
+            background: linear-gradient(-45deg, #3a1f2e, #6b2d4e, #d4a843, #e8748a);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--cream);
-            transition: opacity 1s ease, visibility 1s ease;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s;
             cursor: pointer;
             text-align: center;
             padding: 20px;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .intro-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
+            transform: scale(1.1) translateY(-20px);
         }
 
         .intro-step {
@@ -81,18 +99,86 @@
 
         .intro-step h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             color: var(--gold);
             margin-bottom: 20px;
             letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
         }
 
         .intro-step p {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
             color: var(--warm-white);
             font-style: italic;
             margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+        }
+
+        .intro-step.active h2,
+        .intro-step.active p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .click-spark {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            background: var(--gold);
+            transform: translate(-50%, -50%);
+            animation: sparkAnim 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            box-shadow: 0 0 10px var(--gold), 0 0 20px var(--blush);
+            z-index: 10000;
+        }
+
+        @keyframes sparkAnim {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                width: 120px;
+                height: 120px;
+                opacity: 0;
+            }
+        }
+
+        /* Floating stars in intro */
+        .intro-star {
+            position: absolute;
+            color: var(--gold);
+            pointer-events: none;
+            animation: twinkle 3s infinite ease-in-out;
+            font-size: 1.2rem;
+            opacity: 0.6;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(0.8) rotate(0deg);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2) rotate(180deg);
+                text-shadow: 0 0 10px var(--gold);
+            }
         }
 
         .click-hint {
@@ -771,8 +857,28 @@
         const steps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
         let currentStep = 0;
 
+        // Generate intro stars
+        for (let i = 0; i < 24; i++) {
+            let star = document.createElement('div');
+            star.className = 'intro-star';
+            star.innerHTML = '✦';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = (Math.random() * 3) + 's';
+            star.style.fontSize = (0.5 + Math.random() * 1.5) + 'rem';
+            overlay.appendChild(star);
+        }
+
         // Tìm đoạn JS cũ và thay thế phần điều khiển logic một chút:
-        overlay.addEventListener('click', () => {
+        overlay.addEventListener('click', (e) => {
+            // Create click spark effect
+            const spark = document.createElement('div');
+            spark.className = 'click-spark';
+            spark.style.left = e.clientX + 'px';
+            spark.style.top = e.clientY + 'px';
+            overlay.appendChild(spark);
+            setTimeout(() => spark.remove(), 800);
+
             steps[currentStep].classList.remove('active');
             currentStep++;
             if (currentStep < steps.length) {
