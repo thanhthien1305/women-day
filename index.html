@@ -34,10 +34,8 @@
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
             overflow-y: hidden;
-            /* Prevent scrolling during intro */
         }
 
-        /* Prevent auto scroll initially */
         body.unlocked {
             overflow-y: auto;
         }
@@ -64,17 +62,9 @@
         }
 
         @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .intro-overlay.hidden {
@@ -91,6 +81,8 @@
             visibility: hidden;
             transform: translateY(20px) scale(0.95);
             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 90%;
+            max-width: 600px;
         }
 
         .intro-step.active {
@@ -129,6 +121,117 @@
             opacity: 1;
         }
 
+        /* Name Input Step */
+        #stepName {
+            cursor: default;
+        }
+
+        .name-input-wrapper {
+            margin-top: 10px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+        }
+
+        .intro-step.active .name-input-wrapper {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .name-input-field {
+            background: rgba(255,255,255,0.12);
+            border: 1.5px solid rgba(212,168,67,0.6);
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: white;
+            text-align: center;
+            outline: none;
+            width: 100%;
+            max-width: 340px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .name-input-field::placeholder {
+            color: rgba(255,255,255,0.45);
+            font-style: italic;
+        }
+
+        .name-input-field:focus {
+            border-color: var(--gold);
+            background: rgba(255,255,255,0.18);
+            box-shadow: 0 0 20px rgba(212,168,67,0.3);
+        }
+
+        .name-submit-btn {
+            background: linear-gradient(135deg, var(--gold), #e8a030);
+            border: none;
+            border-radius: 50px;
+            padding: 13px 38px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.35rem;
+            color: var(--deep);
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(212,168,67,0.4);
+        }
+
+        .name-submit-btn:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 30px rgba(212,168,67,0.5);
+        }
+
+        .name-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            max-width: 500px;
+            margin-top: 4px;
+        }
+
+        .name-chip {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(242,167,184,0.4);
+            border-radius: 30px;
+            padding: 5px 14px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--blush);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-style: italic;
+        }
+
+        .name-chip:hover {
+            background: rgba(242,167,184,0.2);
+            border-color: var(--blush);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .name-error {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            color: #ffb3c1;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.3s;
+            min-height: 1.4em;
+        }
+
+        .name-error.show { opacity: 1; }
+
         .click-spark {
             position: absolute;
             pointer-events: none;
@@ -141,24 +244,11 @@
         }
 
         @keyframes sparkAnim {
-            0% {
-                width: 0;
-                height: 0;
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                width: 120px;
-                height: 120px;
-                opacity: 0;
-            }
+            0% { width: 0; height: 0; opacity: 1; }
+            50% { opacity: 1; }
+            100% { width: 120px; height: 120px; opacity: 0; }
         }
 
-        /* Floating stars in intro */
         .intro-star {
             position: absolute;
             color: var(--gold);
@@ -169,18 +259,8 @@
         }
 
         @keyframes twinkle {
-
-            0%,
-            100% {
-                opacity: 0.2;
-                transform: scale(0.8) rotate(0deg);
-            }
-
-            50% {
-                opacity: 0.8;
-                transform: scale(1.2) rotate(180deg);
-                text-shadow: 0 0 10px var(--gold);
-            }
+            0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+            50% { opacity: 0.8; transform: scale(1.2) rotate(180deg); text-shadow: 0 0 10px var(--gold); }
         }
 
         .click-hint {
@@ -193,17 +273,167 @@
         }
 
         @keyframes pulse-hint {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
 
-            0%,
-            100% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
+        /* Personalized greeting modal */
+        .greeting-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-            50% {
-                opacity: 1;
-                transform: scale(1.1);
-            }
+        .greeting-modal.visible {
+            display: flex;
+        }
+
+        .greeting-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(58, 31, 46, 0.75);
+            backdrop-filter: blur(12px);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .greeting-card {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(145deg, #fff9f5 0%, #fdf0f5 50%, #f9f0ff 100%);
+            border-radius: 28px;
+            padding: 48px 40px 40px;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(58,31,46,0.35), 0 0 0 1px rgba(212,168,67,0.2);
+            animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+        }
+
+        @keyframes cardPop {
+            from { transform: scale(0.7) translateY(40px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .greeting-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--rose), var(--gold), var(--lavender), var(--rose));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .greeting-flowers {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            animation: floatFlowers 3s ease-in-out infinite;
+            display: block;
+        }
+
+        @keyframes floatFlowers {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .greeting-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            color: var(--rose);
+            font-style: italic;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 20px rgba(232,116,138,0.3);
+        }
+
+        .greeting-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: var(--lavender);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .greeting-divider {
+            width: 80px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 20px;
+        }
+
+        .greeting-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.05rem, 2vw, 1.22rem);
+            color: #5a3a4a;
+            line-height: 1.9;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .greeting-heart-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 16px;
+            font-size: 1.4rem;
+        }
+
+        .greeting-heart {
+            animation: heartbeat 1.4s ease-in-out infinite;
+        }
+
+        .greeting-heart:nth-child(2) { animation-delay: 0.2s; }
+        .greeting-heart:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .greeting-close {
+            margin-top: 24px;
+            background: linear-gradient(135deg, var(--rose), #c05070);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 36px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 18px rgba(232,116,138,0.35);
+            letter-spacing: 1px;
+        }
+
+        .greeting-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(232,116,138,0.5);
+        }
+
+        /* Floating confetti in card */
+        .card-confetti {
+            position: absolute;
+            top: -10px;
+            pointer-events: none;
+            animation: confettiFall linear forwards;
+            font-size: 1.1rem;
+            opacity: 0;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(250px) rotate(360deg); opacity: 0; }
         }
 
         /* Animated petals background */
@@ -225,29 +455,13 @@
         }
 
         @keyframes fallPetal {
-            0% {
-                transform: translateY(-60px) rotate(0deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.7;
-            }
-
-            90% {
-                opacity: 0.4;
-            }
-
-            100% {
-                transform: translateY(110vh) rotate(720deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-60px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* Hero delay fade in */
-        .hero,
-        .petals-bg,
-        #particles {
+        .hero, .petals-bg, #particles {
             opacity: 0;
             transform: scale(0.92);
             transition: opacity 2.5s ease 0.4s, transform 2.5s ease 0.4s;
@@ -260,12 +474,10 @@
             transform: scale(1);
         }
 
-        /* Burst Petals Explosion */
         .burst-petal {
             position: fixed;
             pointer-events: none;
             z-index: 10001;
-            /* Above almost everything but not too obscuring */
             width: 15px;
             height: 20px;
             border-radius: 50% 0 50% 0;
@@ -275,32 +487,134 @@
         }
 
         @keyframes burstAnim {
-            0% {
-                transform: translate(-50%, -50%) scale(0) rotate(0deg);
-                opacity: 1;
-            }
-
-            80% {
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(var(--s)) rotate(var(--r));
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(var(--s)) rotate(var(--r)); opacity: 0; }
         }
 
-        /* Hero Section */
+        /* Name search bar in main page */
+        .name-search-section {
+            background: linear-gradient(135deg, var(--deep) 0%, #6b2d4e 100%);
+            padding: 32px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .name-search-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg,
+                transparent, transparent 20px,
+                rgba(255,255,255,0.02) 20px, rgba(255,255,255,0.02) 40px);
+        }
+
+        .search-label {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--blush);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-input {
+            background: rgba(255,255,255,0.08);
+            border: 1.5px solid rgba(212,168,67,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: white;
+            outline: none;
+            width: 260px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .search-input::placeholder { color: rgba(255,255,255,0.35); font-style: italic; }
+
+        .search-input:focus {
+            border-color: var(--gold);
+            background: rgba(255,255,255,0.13);
+            box-shadow: 0 0 18px rgba(212,168,67,0.25);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--gold), #e8a030);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.15rem;
+            color: var(--deep);
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 18px rgba(212,168,67,0.35);
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(212,168,67,0.5);
+        }
+
+        .search-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 7px;
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+        }
+
+        .search-chip {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(242,167,184,0.35);
+            border-radius: 30px;
+            padding: 5px 14px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--blush);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-style: italic;
+        }
+
+        .search-chip:hover {
+            background: rgba(242,167,184,0.15);
+            border-color: var(--blush);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Hero */
         .hero {
             position: relative;
             z-index: 1;
             min-height: 100vh;
             display: grid;
-            grid-template-rows: auto 1fr auto;
+            grid-template-rows: auto auto 1fr auto auto;
             padding: 0;
         }
 
-        /* Top banner */
         .top-banner {
             background: linear-gradient(135deg, var(--deep) 0%, #6b2d4e 50%, #3a1f2e 100%);
             padding: 18px 40px;
@@ -317,10 +631,8 @@
             position: absolute;
             inset: 0;
             background: repeating-linear-gradient(45deg,
-                    transparent,
-                    transparent 20px,
-                    rgba(255, 255, 255, 0.03) 20px,
-                    rgba(255, 255, 255, 0.03) 40px);
+                transparent, transparent 20px,
+                rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 40px);
         }
 
         .date-badge {
@@ -343,17 +655,8 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.3);
-                opacity: 0.7;
-            }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
         }
 
         .banner-text {
@@ -365,7 +668,6 @@
             letter-spacing: 2px;
         }
 
-        /* Main content area */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1.2fr 1fr;
@@ -374,7 +676,6 @@
             position: relative;
         }
 
-        /* Photo panels */
         .photo-panel {
             position: relative;
             overflow: hidden;
@@ -388,9 +689,7 @@
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .photo-panel:hover img {
-            transform: scale(1.06);
-        }
+        .photo-panel:hover img { transform: scale(1.06); }
 
         .photo-panel-1 {
             clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
@@ -402,36 +701,18 @@
             animation: slideInRight 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .photo-panel-1,
-        .photo-panel-3 {
-            animation-delay: 0.3s;
-        }
+        .photo-panel-1, .photo-panel-3 { animation-delay: 0.3s; }
 
         @keyframes slideInLeft {
-            from {
-                transform: translateX(-60px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(-60px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes slideInRight {
-            from {
-                transform: translateX(60px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(60px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Center message panel */
         .center-panel {
             position: relative;
             z-index: 2;
@@ -441,23 +722,16 @@
             justify-content: center;
             padding: 50px 30px;
             background: linear-gradient(180deg,
-                    rgba(253, 246, 240, 0.97) 0%,
-                    rgba(255, 249, 245, 1) 50%,
-                    rgba(253, 246, 240, 0.97) 100%);
-            box-shadow: 0 0 60px rgba(232, 116, 138, 0.15), 0 0 120px rgba(155, 126, 200, 0.1);
+                rgba(253,246,240,0.97) 0%,
+                rgba(255,249,245,1) 50%,
+                rgba(253,246,240,0.97) 100%);
+            box-shadow: 0 0 60px rgba(232,116,138,0.15), 0 0 120px rgba(155,126,200,0.1);
             animation: fadeInUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
         }
 
         @keyframes fadeInUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .ornament {
@@ -474,23 +748,16 @@
             margin: 8px 0;
         }
 
-        .ornament-diamond span {
-            color: var(--gold);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-        }
+        .ornament-diamond span { color: var(--gold); font-size: 0.8rem; letter-spacing: 3px; }
 
-        .ornament-diamond::before,
-        .ornament-diamond::after {
+        .ornament-diamond::before, .ornament-diamond::after {
             content: '';
             flex: 1;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold));
         }
 
-        .ornament-diamond::after {
-            background: linear-gradient(90deg, var(--gold), transparent);
-        }
+        .ornament-diamond::after { background: linear-gradient(90deg, var(--gold), transparent); }
 
         .main-title {
             font-family: 'Playfair Display', serif;
@@ -506,7 +773,7 @@
             font-style: italic;
             display: block;
             font-size: 1.3em;
-            text-shadow: 0 2px 20px rgba(232, 116, 138, 0.3);
+            text-shadow: 0 2px 20px rgba(232,116,138,0.3);
         }
 
         .wish-text {
@@ -538,30 +805,9 @@
             margin: 14px 0;
         }
 
-        .heart {
-            font-size: 1.2rem;
-            animation: heartbeat 1.4s ease-in-out infinite;
-        }
-
-        .heart:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .heart:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes heartbeat {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.25);
-            }
-        }
+        .heart { font-size: 1.2rem; animation: heartbeat 1.4s ease-in-out infinite; }
+        .heart:nth-child(2) { animation-delay: 0.2s; }
+        .heart:nth-child(3) { animation-delay: 0.4s; }
 
         .signature {
             font-family: 'Playfair Display', serif;
@@ -574,14 +820,13 @@
             font-weight: 400;
         }
 
-        /* Photo overlays */
         .photo-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom,
-                    rgba(58, 31, 46, 0.15) 0%,
-                    rgba(58, 31, 46, 0.05) 40%,
-                    rgba(232, 116, 138, 0.25) 100%);
+                rgba(58,31,46,0.15) 0%,
+                rgba(58,31,46,0.05) 40%,
+                rgba(232,116,138,0.25) 100%);
             pointer-events: none;
         }
 
@@ -593,13 +838,12 @@
             font-family: 'Dancing Script', cursive;
             font-size: 1.1rem;
             color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             white-space: nowrap;
             letter-spacing: 1px;
             font-weight: 600;
         }
 
-        /* Bottom footer */
         .bottom-footer {
             background: var(--deep);
             padding: 20px 40px;
@@ -614,9 +858,7 @@
         .bottom-footer::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
@@ -638,23 +880,13 @@
             animation: sway 3s ease-in-out infinite;
         }
 
-        .footer-flower:nth-child(3) {
-            animation-delay: 1s;
-        }
+        .footer-flower:nth-child(3) { animation-delay: 1s; }
 
         @keyframes sway {
-
-            0%,
-            100% {
-                transform: rotate(-5deg);
-            }
-
-            50% {
-                transform: rotate(5deg);
-            }
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
-        /* Floating particles */
         .particle {
             position: fixed;
             pointer-events: none;
@@ -665,77 +897,38 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0.5);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.6;
-            }
-
-            90% {
-                opacity: 0.3;
-            }
-
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
                 grid-template-rows: 280px auto 280px;
             }
-
             .photo-panel-1 {
                 clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
                 order: 1;
             }
-
-            .center-panel {
-                order: 2;
-                padding: 40px 24px;
-            }
-
+            .center-panel { order: 2; padding: 40px 24px; }
             .photo-panel-3 {
                 clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
                 order: 3;
             }
-
-            .top-banner {
-                flex-wrap: wrap;
-                padding: 14px 20px;
-            }
-
-            .banner-text {
-                text-align: center;
-            }
+            .top-banner { flex-wrap: wrap; padding: 14px 20px; }
+            .banner-text { text-align: center; }
+            .search-input { width: 220px; }
         }
 
-        #step3.active h2 {
-            animation: shake 0.5s infinite;
-        }
+        #step3.active h2 { animation: shake 0.5s infinite; }
 
         @keyframes shake {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            25% {
-                transform: rotate(1deg);
-            }
-
-            75% {
-                transform: rotate(-1deg);
-            }
-
-            100% {
-                transform: rotate(0deg);
-            }
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
         }
     </style>
 </head>
@@ -746,8 +939,7 @@
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-step active" id="step1">
             <h2>Ting Ting! 🔔</h2>
-            <p>Hệ thống vừa phát hiện một <strong style="color: var(--gold);">Nữ Thần</strong> xinh đẹp đang truy cập...
-            </p>
+            <p>Hệ thống vừa phát hiện một <strong style="color: var(--gold);">Nữ Thần</strong> xinh đẹp đang truy cập...</p>
         </div>
 
         <div class="intro-step" id="step2">
@@ -763,13 +955,41 @@
             </p>
         </div>
 
-        <div class="click-hint">Chạm vào màn hình để tiếp tục ✨</div>
+        <!-- Name Input Step -->
+        <div class="intro-step" id="stepName" onclick="event.stopPropagation()">
+            <h2>Bạn là ai đây? 🌸</h2>
+            <p style="font-size:clamp(1rem,2.5vw,1.5rem); margin-bottom: 10px;">Nhập tên để nhận lời chúc riêng nhé!</p>
+            <div class="name-input-wrapper">
+                <input type="text" class="name-input-field" id="introNameInput" placeholder="Nhập tên của bạn..." autocomplete="off">
+                <div class="name-suggestions" id="nameSuggestions"></div>
+                <div class="name-error" id="nameError">Tên này chưa có trong danh sách... thử tên khác nhé! 🌷</div>
+                <button class="name-submit-btn" id="introSubmitBtn">Xem lời chúc của tôi 💌</button>
+            </div>
+        </div>
+
+        <div class="click-hint" id="clickHint">Chạm vào màn hình để tiếp tục ✨</div>
+    </div>
+
+    <!-- Personalized Greeting Modal -->
+    <div class="greeting-modal" id="greetingModal">
+        <div class="greeting-backdrop" id="greetingBackdrop"></div>
+        <div class="greeting-card" id="greetingCard">
+            <span class="greeting-flowers">🌸💐🌷</span>
+            <div class="greeting-name" id="greetingName"></div>
+            <div class="greeting-subtitle">Nhân Ngày Quốc Tế Phụ Nữ 8/3 🎀</div>
+            <div class="greeting-divider"></div>
+            <div class="greeting-message" id="greetingMessage"></div>
+            <div class="greeting-heart-row">
+                <span class="greeting-heart">💗</span>
+                <span class="greeting-heart">🌺</span>
+                <span class="greeting-heart">💗</span>
+            </div>
+            <button class="greeting-close" id="greetingClose">Cảm ơn nhé! 🌸</button>
+        </div>
     </div>
 
     <!-- Falling petals background -->
     <div class="petals-bg" id="petalsBg"></div>
-
-    <!-- Floating emoji particles -->
     <div id="particles"></div>
 
     <!-- HERO -->
@@ -786,40 +1006,40 @@
             <span class="divider-star">🌸</span>
         </div>
 
+        <!-- NAME SEARCH SECTION -->
+        <div class="name-search-section">
+            <div class="search-label">✨ Tìm lời chúc của bạn ✨</div>
+            <div class="search-row">
+                <input type="text" class="search-input" id="mainSearchInput" placeholder="Nhập tên của bạn..." autocomplete="off">
+                <button class="search-btn" id="mainSearchBtn">Xem lời chúc 💌</button>
+            </div>
+            <div class="search-chips" id="searchChips"></div>
+        </div>
+
         <!-- MAIN 3-COLUMN LAYOUT -->
         <div class="main-content">
-
-            <!-- LEFT PHOTO -->
             <div class="photo-panel photo-panel-1">
                 <img src="./asset/z7591770700047_3aaf04eeee0dd9b4cf61781aa9737b91.jpg" alt="Hoa văn phòng 1">
                 <div class="photo-overlay"></div>
                 <div class="photo-caption">🌷 Tươi thắm</div>
             </div>
 
-            <!-- CENTER MESSAGE -->
             <div class="center-panel">
-                <div class="ornament-diamond">
-                    <span>✦ ✦ ✦</span>
-                </div>
-
+                <div class="ornament-diamond"><span>✦ ✦ ✦</span></div>
                 <div class="main-title">
                     Kính chúc<br>
                     <em>Chị Em Phụ Nữ</em>
                 </div>
-
                 <div class="ornament"></div>
-
                 <div class="wish-text">
                     Mãi mãi tỏa sáng<br>
                     như những bông hoa
                 </div>
-
                 <div class="heart-row">
                     <span class="heart">💗</span>
                     <span class="heart">🌸</span>
                     <span class="heart">💗</span>
                 </div>
-
                 <p class="message-body">
                     Nhân ngày 8 tháng 3,<br>
                     xin gửi đến toàn thể chị em<br>
@@ -830,60 +1050,28 @@
                     hạnh phúc, thành công<br>
                     và xinh đẹp mỗi ngày! 🌺
                 </p>
-
                 <div class="ornament" style="margin-top: 20px;"></div>
-
-                <div class="ornament-diamond" style="margin: 10px 0;">
-                    <span>✦ ✦ ✦</span>
-                </div>
-
+                <div class="ornament-diamond" style="margin: 10px 0;"><span>✦ ✦ ✦</span></div>
                 <div class="signature">— Nam nhân công ty gửi lời yêu thương —</div>
             </div>
 
-            <!-- RIGHT PHOTO -->
             <div class="photo-panel photo-panel-3">
                 <img src="./asset/z7591770720490_8bfd043c6b573a061efca84a638ea6ce.jpg" alt="Hoa văn phòng 3">
                 <div class="photo-overlay"></div>
                 <div class="photo-caption">💜 Rực rỡ</div>
             </div>
-
         </div>
 
-        <!-- BOTTOM FULL-WIDTH PHOTO STRIP -->
+        <!-- BOTTOM PHOTO STRIP -->
         <div style="position:relative; height: 260px; overflow: hidden; z-index: 1;">
             <img src="./asset/z7591770718245_3e1fcd70d923322e9bf829844a4b4293.jpg" alt="Hoa văn phòng 2"
                 style="width:100%; height:100%; object-fit:cover; object-position: center 60%; display:block; transition: transform 0.8s ease;"
                 onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
-            <div style="
-      position:absolute; inset:0;
-      background: linear-gradient(to bottom, rgba(58,31,46,0.5) 0%, rgba(58,31,46,0.1) 40%, rgba(58,31,46,0.6) 100%);
-    "></div>
-            <div style="
-      position:absolute; inset:0;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap: 10px;
-    ">
-                <div style="
-        font-family:'Dancing Script', cursive;
-        font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-        color: white;
-        text-shadow: 0 3px 20px rgba(0,0,0,0.6);
-        font-weight: 700;
-        letter-spacing: 3px;
-      ">Chúc Mừng Ngày 8/3</div>
-                <div style="
-        font-family:'Cormorant Garamond', serif;
-        font-size: clamp(0.9rem, 1.8vw, 1.25rem);
-        color: rgba(255,255,255,0.92);
-        font-style: italic;
-        letter-spacing: 2px;
-        text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-      ">"Phụ nữ — vẻ đẹp làm nên thế giới tươi hơn mỗi ngày"</div>
-                <div style="
-        display: flex; gap: 12px; margin-top: 6px;
-        font-size: 1.5rem;
-      ">🌷🌸💐🌺🌸🌷</div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(58,31,46,0.5) 0%,rgba(58,31,46,0.1) 40%,rgba(58,31,46,0.6) 100%);"></div>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+                <div style="font-family:'Dancing Script',cursive;font-size:clamp(1.6rem,3.5vw,2.5rem);color:white;text-shadow:0 3px 20px rgba(0,0,0,0.6);font-weight:700;letter-spacing:3px;">Chúc Mừng Ngày 8/3</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(0.9rem,1.8vw,1.25rem);color:rgba(255,255,255,0.92);font-style:italic;letter-spacing:2px;text-shadow:0 2px 12px rgba(0,0,0,0.5);">"Phụ nữ — vẻ đẹp làm nên thế giới tươi hơn mỗi ngày"</div>
+                <div style="display:flex;gap:12px;margin-top:6px;font-size:1.5rem;">🌷🌸💐🌺🌸🌷</div>
             </div>
         </div>
 
@@ -900,10 +1088,80 @@
     </div>
 
     <script>
-        // Intro Logic
+        // ======== DATA ========
+        const greetings = [
+            { name: "Trần Thị Then", shortName: "chị Then", message: "Nhân ngày 8/3, em chúc chị Then luôn mạnh khỏe, vui vẻ và gặp nhiều may mắn trong cuộc sống. Chúc chị lúc nào cũng tràn đầy năng lượng tích cực và có thật nhiều niềm vui mỗi ngày." },
+            { name: "Nguyễn Thị Thanh", shortName: "chị Thanh", message: "Chúc chị Thanh một ngày 8/3 thật nhiều niềm vui và hạnh phúc. Chúc chị luôn xinh đẹp, thành công trong công việc và luôn giữ được nụ cười rạng rỡ." },
+            { name: "Nguyễn Thị Thúy", shortName: "chị Thúy", message: "Nhân dịp Quốc tế Phụ nữ 8/3, em chúc chị Thúy luôn mạnh khỏe, hạnh phúc và gặp nhiều điều tốt đẹp trong cuộc sống. Chúc chị công việc thuận lợi và mọi dự định đều suôn sẻ." },
+            { name: "Phạm Thùy Linh", shortName: "chị Thùy Linh", message: "Nhân ngày 8/3, em chúc chị Thùy Linh luôn xinh đẹp, vui vẻ và tràn đầy năng lượng tích cực. Chúc chị thật nhiều sức khỏe, công việc thuận lợi và luôn gặp nhiều điều may mắn, hạnh phúc trong cuộc sống." },
+            { name: "Nguyễn Thị Huyền Trang", shortName: "chị Trang", message: "Chúc chị Trang một ngày 8/3 thật nhiều niềm vui và hạnh phúc. Chúc chị luôn xinh đẹp, rạng rỡ, công việc thuận lợi và lúc nào cũng tràn đầy năng lượng tích cực. Em chúc chị ngày nào cũng vui như hôm nay!" },
+            { name: "Đỗ Thị Ngọc Yến", shortName: "chị Ngọc Yến", message: "Nhân ngày 8/3, em chúc chị Ngọc Yến luôn mạnh khỏe, xinh đẹp và gặp nhiều may mắn trong công việc cũng như cuộc sống. Chúc chị luôn giữ được nụ cười tươi và có thật nhiều điều tốt đẹp mỗi ngày." },
+            { name: "Trần Thị Ly", shortName: "chị Ly", message: "Chúc chị Ly một ngày Quốc tế Phụ nữ 8/3 thật vui vẻ và ý nghĩa. Chúc chị luôn hạnh phúc, thành công trong mọi việc và luôn giữ được sự nhiệt huyết, lạc quan trong cuộc sống." },
+            { name: "Vũ Tố Uyên", shortName: "chị Tố Uyên", message: "Nhân dịp 8/3, em chúc chị Tố Uyên luôn xinh đẹp, vui vẻ và gặp thật nhiều may mắn. Chúc chị công việc thuận lợi, mọi dự định đều suôn sẻ và luôn tràn đầy năng lượng tích cực." },
+            { name: "Trịnh Thị Thư", shortName: "chị Thư", message: "Chúc chị Thư một ngày 8/3 thật nhiều niềm vui và hạnh phúc. Chúc chị luôn khỏe mạnh, thành công trong công việc và có thật nhiều khoảnh khắc đáng nhớ bên những người thân yêu." },
+            { name: "Trịnh Thị Yến", shortName: "chị Yến", message: "Nhân ngày 8/3, em chúc chị Yến luôn xinh đẹp, hạnh phúc và gặp nhiều may mắn trong cuộc sống. Chúc chị luôn giữ được sự lạc quan, vui vẻ và đạt được nhiều thành công trong thời gian tới." },
+            { name: "Nguyễn Thị Minh Thảo", shortName: "chị Minh Thảo", message: "Chúc chị Minh Thảo một ngày 8/3 thật ý nghĩa và vui vẻ. Chúc chị luôn xinh đẹp, tràn đầy năng lượng và đạt được nhiều thành công trong công việc cũng như cuộc sống." }
+        ];
+
+        function normalize(str) {
+            return str.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+                .trim();
+        }
+
+        function findPerson(query) {
+            const q = normalize(query);
+            // Exact match first
+            let found = greetings.find(g => normalize(g.name) === q);
+            if (found) return found;
+            // Partial match on name parts
+            found = greetings.find(g => {
+                const parts = normalize(g.name).split(' ');
+                return parts.some(p => p === q) || normalize(g.name).includes(q);
+            });
+            return found || null;
+        }
+
+        // ======== MODAL ========
+        function showGreeting(person, triggerBurst) {
+            const modal = document.getElementById('greetingModal');
+            document.getElementById('greetingName').textContent = person.name;
+            document.getElementById('greetingMessage').textContent = person.message;
+            modal.classList.add('visible');
+
+            // Spawn confetti inside card
+            const card = document.getElementById('greetingCard');
+            const emojis = ['🌸', '💐', '🌷', '✨', '💗', '🌺'];
+            for (let i = 0; i < 14; i++) {
+                const c = document.createElement('div');
+                c.className = 'card-confetti';
+                c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                c.style.left = (5 + Math.random() * 90) + '%';
+                c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+                c.style.animationDelay = (Math.random() * 0.5) + 's';
+                card.appendChild(c);
+                setTimeout(() => c.remove(), 3500);
+            }
+        }
+
+        document.getElementById('greetingClose').addEventListener('click', () => {
+            document.getElementById('greetingModal').classList.remove('visible');
+        });
+        document.getElementById('greetingBackdrop').addEventListener('click', () => {
+            document.getElementById('greetingModal').classList.remove('visible');
+        });
+
+        // ======== INTRO ========
         const overlay = document.getElementById('introOverlay');
-        const steps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+        const steps = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3'),
+            document.getElementById('stepName')
+        ];
         let currentStep = 0;
+        const clickHint = document.getElementById('clickHint');
 
         // Generate intro stars
         for (let i = 0; i < 24; i++) {
@@ -917,9 +1175,25 @@
             overlay.appendChild(star);
         }
 
-        // Tìm đoạn JS cũ và thay thế phần điều khiển logic một chút:
+        // Populate intro name suggestions (chips)
+        const introSugg = document.getElementById('nameSuggestions');
+        greetings.forEach(g => {
+            const parts = g.name.split(' ');
+            const shortName = parts[parts.length - 1]; // last name part
+            const chip = document.createElement('div');
+            chip.className = 'name-chip';
+            chip.textContent = shortName;
+            chip.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('introNameInput').value = g.name;
+                document.getElementById('nameError').classList.remove('show');
+            });
+            introSugg.appendChild(chip);
+        });
+
         overlay.addEventListener('click', (e) => {
-            // Create click spark effect
+            if (currentStep === 3) return; // Name step: ignore clicks on overlay
+
             const spark = document.createElement('div');
             spark.className = 'click-spark';
             spark.style.left = e.clientX + 'px';
@@ -929,51 +1203,107 @@
 
             steps[currentStep].classList.remove('active');
             currentStep++;
+
             if (currentStep < steps.length) {
                 steps[currentStep].classList.add('active');
-            } else {
-                overlay.classList.add('hidden');
-                document.body.classList.add('unlocked');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                // Petal Explosion Effect on Open
-                const burstColors = ['#e8748a', '#f2a7b8', '#9b7ec8', '#c9a6e0', '#d4a843', '#f9c6d0', '#ffffff'];
-                for (let i = 0; i < 999; i++) {
-                    const petal = document.createElement('div');
-                    petal.className = 'burst-petal';
-
-                    // Random fly direction
-                    const angle = Math.random() * Math.PI * 2;
-                    // Vận tốc/độ xa bay khác nhau
-                    const distance = 50 + Math.random() * (window.innerWidth / 1.5);
-
-                    const tx = (Math.cos(angle) * distance) + 'px';
-                    const ty = (Math.sin(angle) * distance) + 'px';
-                    const scale = 0.5 + Math.random() * 1.5;
-                    const rotation = (Math.random() * 1080 - 540) + 'deg';
-
-                    petal.style.cssText = `
-                        background: ${burstColors[Math.floor(Math.random() * burstColors.length)]};
-                        --tx: ${tx};
-                        --ty: ${ty};
-                        --s: ${scale};
-                        --r: ${rotation};
-                        left: ${e.clientX}px;
-                        top: ${e.clientY}px;
-                        animation-duration: ${1 + Math.random() * 1.5}s;
-                    `;
-                    document.body.appendChild(petal);
-
-                    // Clean up DOM
-                    setTimeout(() => petal.remove(), 2500);
+                if (currentStep === 3) {
+                    // Name input step — hide hint
+                    clickHint.style.display = 'none';
+                    setTimeout(() => document.getElementById('introNameInput').focus(), 700);
                 }
-
-                // Thêm một thông báo nhỏ khi quà mở ra
-                console.log("Chúc mừng 8/3! Quà đã được mở!");
             }
         });
 
-        // Create falling petals
+        // Intro submit button
+        document.getElementById('introSubmitBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const val = document.getElementById('introNameInput').value.trim();
+            const person = findPerson(val);
+            const errEl = document.getElementById('nameError');
+
+            if (!val) {
+                errEl.textContent = 'Bạn chưa nhập tên kìa! 🌷';
+                errEl.classList.add('show');
+                return;
+            }
+            if (!person) {
+                errEl.textContent = 'Tên này chưa có trong danh sách... thử tên khác nhé! 🌷';
+                errEl.classList.add('show');
+                return;
+            }
+
+            errEl.classList.remove('show');
+
+            // Burst petals
+            const burstColors = ['#e8748a', '#f2a7b8', '#9b7ec8', '#c9a6e0', '#d4a843', '#f9c6d0', '#ffffff'];
+            for (let i = 0; i < 80; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'burst-petal';
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 50 + Math.random() * (window.innerWidth / 1.5);
+                petal.style.cssText = `
+                    background: ${burstColors[Math.floor(Math.random() * burstColors.length)]};
+                    --tx: ${Math.cos(angle) * distance}px;
+                    --ty: ${Math.sin(angle) * distance}px;
+                    --s: ${0.5 + Math.random() * 1.5};
+                    --r: ${Math.random() * 1080 - 540}deg;
+                    left: 50%; top: 50%;
+                    animation-duration: ${1 + Math.random() * 1.5}s;
+                `;
+                document.body.appendChild(petal);
+                setTimeout(() => petal.remove(), 2500);
+            }
+
+            // Fade out overlay
+            overlay.classList.add('hidden');
+            document.body.classList.add('unlocked');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Show greeting after overlay fades
+            setTimeout(() => showGreeting(person), 800);
+        });
+
+        // Enter key in intro input
+        document.getElementById('introNameInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('introSubmitBtn').click();
+        });
+
+        // ======== MAIN PAGE SEARCH ========
+        const searchChips = document.getElementById('searchChips');
+        greetings.forEach(g => {
+            const chip = document.createElement('div');
+            chip.className = 'search-chip';
+            chip.textContent = g.name;
+            chip.addEventListener('click', () => {
+                document.getElementById('mainSearchInput').value = g.name;
+                triggerMainSearch();
+            });
+            searchChips.appendChild(chip);
+        });
+
+        function triggerMainSearch() {
+            const val = document.getElementById('mainSearchInput').value.trim();
+            if (!val) return;
+            const person = findPerson(val);
+            if (person) {
+                showGreeting(person);
+                document.getElementById('mainSearchInput').value = '';
+            } else {
+                document.getElementById('mainSearchInput').style.borderColor = 'var(--rose)';
+                document.getElementById('mainSearchInput').placeholder = 'Không tìm thấy... thử lại nhé 🌷';
+                setTimeout(() => {
+                    document.getElementById('mainSearchInput').style.borderColor = '';
+                    document.getElementById('mainSearchInput').placeholder = 'Nhập tên của bạn...';
+                }, 2000);
+            }
+        }
+
+        document.getElementById('mainSearchBtn').addEventListener('click', triggerMainSearch);
+        document.getElementById('mainSearchInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') triggerMainSearch();
+        });
+
+        // ======== PETALS & PARTICLES ========
         const petalsBg = document.getElementById('petalsBg');
         const colors = ['#e8748a', '#f2a7b8', '#9b7ec8', '#c9a6e0', '#d4a843', '#f9c6d0'];
 
@@ -981,19 +1311,18 @@
             const petal = document.createElement('div');
             petal.className = 'petal';
             petal.style.cssText = `
-      left: ${Math.random() * 100}%;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      animation-duration: ${5 + Math.random() * 8}s;
-      animation-delay: ${Math.random() * 10}s;
-      width: ${8 + Math.random() * 10}px;
-      height: ${12 + Math.random() * 14}px;
-      border-radius: ${Math.random() > 0.5 ? '50% 0 50% 0' : '0 50% 0 50%'};
-      opacity: 0;
-    `;
+                left: ${Math.random() * 100}%;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                animation-duration: ${5 + Math.random() * 8}s;
+                animation-delay: ${Math.random() * 10}s;
+                width: ${8 + Math.random() * 10}px;
+                height: ${12 + Math.random() * 14}px;
+                border-radius: ${Math.random() > 0.5 ? '50% 0 50% 0' : '0 50% 0 50%'};
+                opacity: 0;
+            `;
             petalsBg.appendChild(petal);
         }
 
-        // Create floating particles
         const particlesContainer = document.getElementById('particles');
         const emojis = ['🌸', '💐', '🌷', '✨', '💗', '🌺', '💜'];
 
@@ -1002,11 +1331,11 @@
             p.className = 'particle';
             p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
             p.style.cssText = `
-      left: ${Math.random() * 100}%;
-      animation-duration: ${8 + Math.random() * 12}s;
-      animation-delay: ${Math.random() * 15}s;
-      font-size: ${0.7 + Math.random() * 0.8}rem;
-    `;
+                left: ${Math.random() * 100}%;
+                animation-duration: ${8 + Math.random() * 12}s;
+                animation-delay: ${Math.random() * 15}s;
+                font-size: ${0.7 + Math.random() * 0.8}rem;
+            `;
             particlesContainer.appendChild(p);
         }
     </script>
