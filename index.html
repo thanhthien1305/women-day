@@ -33,6 +33,89 @@
             min-height: 100vh;
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
+            overflow-y: hidden;
+            /* Prevent scrolling during intro */
+        }
+
+        /* Prevent auto scroll initially */
+        body.unlocked {
+            overflow-y: auto;
+        }
+
+        /* Intro Overlay */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, var(--deep) 0%, #6b2d4e 50%, #3a1f2e 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            transition: opacity 1s ease, visibility 1s ease;
+            cursor: pointer;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-step {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .intro-step.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .intro-step h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .intro-step p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--warm-white);
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 50px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--lavender);
+            animation: pulse-hint 1.5s infinite;
+        }
+
+        @keyframes pulse-hint {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
         }
 
         /* Animated petals background */
@@ -498,10 +581,56 @@
                 text-align: center;
             }
         }
+
+        #step3.active h2 {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(1deg);
+            }
+
+            75% {
+                transform: rotate(-1deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Intro Overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-step active" id="step1">
+            <h2>Ting Ting! 🔔</h2>
+            <p>Hệ thống vừa phát hiện một <strong style="color: var(--gold);">Nữ Thần</strong> xinh đẹp đang truy cập...
+            </p>
+        </div>
+
+        <div class="intro-step" id="step2">
+            <h2>Xác nhận danh tính... </h2>
+            <p>Đúng là bạn rồi! Những bông hoa đẹp nhất công ty đang chờ bạn đó.<br>
+                Hít một hơi thật sâu để chuẩn bị nhận bất ngờ nhé! 🥰</p>
+        </div>
+
+        <div class="intro-step" id="step3">
+            <h2>3... 2... 1... 🎁</h2>
+            <p>Chạm nhẹ vào đây một tí thôi!<br>
+                <small style="font-size: 0.8rem; opacity: 0.8;">(Một bất ngờ nhỏ xíu xiu đang chờ...)</small>
+            </p>
+        </div>
+
+        <div class="click-hint">Chạm vào màn hình để tiếp tục ✨</div>
+    </div>
 
     <!-- Falling petals background -->
     <div class="petals-bg" id="petalsBg"></div>
@@ -637,6 +766,27 @@
     </div>
 
     <script>
+        // Intro Logic
+        const overlay = document.getElementById('introOverlay');
+        const steps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+        let currentStep = 0;
+
+        // Tìm đoạn JS cũ và thay thế phần điều khiển logic một chút:
+        overlay.addEventListener('click', () => {
+            steps[currentStep].classList.remove('active');
+            currentStep++;
+            if (currentStep < steps.length) {
+                steps[currentStep].classList.add('active');
+            } else {
+                overlay.classList.add('hidden');
+                document.body.classList.add('unlocked');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Thêm một thông báo nhỏ khi quà mở ra
+                console.log("Chúc mừng 8/3! Quà đã được mở!");
+            }
+        });
+
         // Create falling petals
         const petalsBg = document.getElementById('petalsBg');
         const colors = ['#e8748a', '#f2a7b8', '#9b7ec8', '#c9a6e0', '#d4a843', '#f9c6d0'];
